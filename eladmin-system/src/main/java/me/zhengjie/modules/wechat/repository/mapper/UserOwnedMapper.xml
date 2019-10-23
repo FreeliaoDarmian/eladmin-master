@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="me.zhengjie.modules.wechat.repository.UserOwnedMapper">
+  <resultMap id="BaseResultMap" type="me.zhengjie.modules.wechat.entity.UserOwned">
+    <id column="user_owned_id" jdbcType="INTEGER" property="userOwnedId" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="product_id" jdbcType="INTEGER" property="productId" />
+    <result column="user_owned_address" jdbcType="CHAR" property="userOwnedAddress" />
+    <result column="user_owned_intime" jdbcType="TINYINT" property="userOwnedIntime" />
+    <result column="user_owned_order_time" jdbcType="TIMESTAMP" property="userOwnedOrderTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    user_owned_id, user_id, product_id, user_owned_address, user_owned_intime, user_owned_order_time
+  </sql>
+  <select id="selectByExample" parameterType="me.zhengjie.modules.wechat.entity.UserOwnedExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from user_owned
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user_owned
+    where user_owned_id = #{userOwnedId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from user_owned
+    where user_owned_id = #{userOwnedId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="me.zhengjie.modules.wechat.entity.UserOwnedExample">
+    delete from user_owned
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="me.zhengjie.modules.wechat.entity.UserOwned">
+    insert into user_owned (user_owned_id, user_id, product_id, 
+      user_owned_address, user_owned_intime, user_owned_order_time
+      )
+    values (#{userOwnedId,jdbcType=INTEGER}, #{userId,jdbcType=BIGINT}, #{productId,jdbcType=INTEGER}, 
+      #{userOwnedAddress,jdbcType=CHAR}, #{userOwnedIntime,jdbcType=TINYINT}, #{userOwnedOrderTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="me.zhengjie.modules.wechat.entity.UserOwned">
+    insert into user_owned
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userOwnedId != null">
+        user_owned_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="productId != null">
+        product_id,
+      </if>
+      <if test="userOwnedAddress != null">
+        user_owned_address,
+      </if>
+      <if test="userOwnedIntime != null">
+        user_owned_intime,
+      </if>
+      <if test="userOwnedOrderTime != null">
+        user_owned_order_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userOwnedId != null">
+        #{userOwnedId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="productId != null">
+        #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="userOwnedAddress != null">
+        #{userOwnedAddress,jdbcType=CHAR},
+      </if>
+      <if test="userOwnedIntime != null">
+        #{userOwnedIntime,jdbcType=TINYINT},
+      </if>
+      <if test="userOwnedOrderTime != null">
+        #{userOwnedOrderTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="me.zhengjie.modules.wechat.entity.UserOwnedExample" resultType="java.lang.Long">
+    select count(*) from user_owned
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update user_owned
+    <set>
+      <if test="record.userOwnedId != null">
+        user_owned_id = #{record.userOwnedId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=BIGINT},
+      </if>
+      <if test="record.productId != null">
+        product_id = #{record.productId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userOwnedAddress != null">
+        user_owned_address = #{record.userOwnedAddress,jdbcType=CHAR},
+      </if>
+      <if test="record.userOwnedIntime != null">
+        user_owned_intime = #{record.userOwnedIntime,jdbcType=TINYINT},
+      </if>
+      <if test="record.userOwnedOrderTime != null">
+        user_owned_order_time = #{record.userOwnedOrderTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update user_owned
+    set user_owned_id = #{record.userOwnedId,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=BIGINT},
+      product_id = #{record.productId,jdbcType=INTEGER},
+      user_owned_address = #{record.userOwnedAddress,jdbcType=CHAR},
+      user_owned_intime = #{record.userOwnedIntime,jdbcType=TINYINT},
+      user_owned_order_time = #{record.userOwnedOrderTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="me.zhengjie.modules.wechat.entity.UserOwned">
+    update user_owned
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="productId != null">
+        product_id = #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="userOwnedAddress != null">
+        user_owned_address = #{userOwnedAddress,jdbcType=CHAR},
+      </if>
+      <if test="userOwnedIntime != null">
+        user_owned_intime = #{userOwnedIntime,jdbcType=TINYINT},
+      </if>
+      <if test="userOwnedOrderTime != null">
+        user_owned_order_time = #{userOwnedOrderTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where user_owned_id = #{userOwnedId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="me.zhengjie.modules.wechat.entity.UserOwned">
+    update user_owned
+    set user_id = #{userId,jdbcType=BIGINT},
+      product_id = #{productId,jdbcType=INTEGER},
+      user_owned_address = #{userOwnedAddress,jdbcType=CHAR},
+      user_owned_intime = #{userOwnedIntime,jdbcType=TINYINT},
+      user_owned_order_time = #{userOwnedOrderTime,jdbcType=TIMESTAMP}
+    where user_owned_id = #{userOwnedId,jdbcType=INTEGER}
+  </update>
+</mapper>

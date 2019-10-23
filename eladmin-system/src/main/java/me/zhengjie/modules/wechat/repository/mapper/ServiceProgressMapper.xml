@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="me.zhengjie.modules.wechat.repository.ServiceProgressMapper">
+  <resultMap id="BaseResultMap" type="me.zhengjie.modules.wechat.entity.ServiceProgress">
+    <id column="progress_id" jdbcType="BIGINT" property="progressId" />
+    <result column="service_id" jdbcType="VARCHAR" property="serviceId" />
+    <result column="progress_state" jdbcType="VARCHAR" property="progressState" />
+    <result column="progress_user" jdbcType="BIGINT" property="progressUser" />
+    <result column="progress_time" jdbcType="TIMESTAMP" property="progressTime" />
+    <result column="progress_memo" jdbcType="VARCHAR" property="progressMemo" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    progress_id, service_id, progress_state, progress_user, progress_time, progress_memo
+  </sql>
+  <select id="selectByExample" parameterType="me.zhengjie.modules.wechat.entity.ServiceProgressExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from service_progress
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from service_progress
+    where progress_id = #{progressId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from service_progress
+    where progress_id = #{progressId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="me.zhengjie.modules.wechat.entity.ServiceProgressExample">
+    delete from service_progress
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="me.zhengjie.modules.wechat.entity.ServiceProgress">
+    insert into service_progress (progress_id, service_id, progress_state, 
+      progress_user, progress_time, progress_memo
+      )
+    values (#{progressId,jdbcType=BIGINT}, #{serviceId,jdbcType=VARCHAR}, #{progressState,jdbcType=VARCHAR}, 
+      #{progressUser,jdbcType=BIGINT}, #{progressTime,jdbcType=TIMESTAMP}, #{progressMemo,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="me.zhengjie.modules.wechat.entity.ServiceProgress">
+    insert into service_progress
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="progressId != null">
+        progress_id,
+      </if>
+      <if test="serviceId != null">
+        service_id,
+      </if>
+      <if test="progressState != null">
+        progress_state,
+      </if>
+      <if test="progressUser != null">
+        progress_user,
+      </if>
+      <if test="progressTime != null">
+        progress_time,
+      </if>
+      <if test="progressMemo != null">
+        progress_memo,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="progressId != null">
+        #{progressId,jdbcType=BIGINT},
+      </if>
+      <if test="serviceId != null">
+        #{serviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="progressState != null">
+        #{progressState,jdbcType=VARCHAR},
+      </if>
+      <if test="progressUser != null">
+        #{progressUser,jdbcType=BIGINT},
+      </if>
+      <if test="progressTime != null">
+        #{progressTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="progressMemo != null">
+        #{progressMemo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="me.zhengjie.modules.wechat.entity.ServiceProgressExample" resultType="java.lang.Long">
+    select count(*) from service_progress
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update service_progress
+    <set>
+      <if test="record.progressId != null">
+        progress_id = #{record.progressId,jdbcType=BIGINT},
+      </if>
+      <if test="record.serviceId != null">
+        service_id = #{record.serviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.progressState != null">
+        progress_state = #{record.progressState,jdbcType=VARCHAR},
+      </if>
+      <if test="record.progressUser != null">
+        progress_user = #{record.progressUser,jdbcType=BIGINT},
+      </if>
+      <if test="record.progressTime != null">
+        progress_time = #{record.progressTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.progressMemo != null">
+        progress_memo = #{record.progressMemo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update service_progress
+    set progress_id = #{record.progressId,jdbcType=BIGINT},
+      service_id = #{record.serviceId,jdbcType=VARCHAR},
+      progress_state = #{record.progressState,jdbcType=VARCHAR},
+      progress_user = #{record.progressUser,jdbcType=BIGINT},
+      progress_time = #{record.progressTime,jdbcType=TIMESTAMP},
+      progress_memo = #{record.progressMemo,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="me.zhengjie.modules.wechat.entity.ServiceProgress">
+    update service_progress
+    <set>
+      <if test="serviceId != null">
+        service_id = #{serviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="progressState != null">
+        progress_state = #{progressState,jdbcType=VARCHAR},
+      </if>
+      <if test="progressUser != null">
+        progress_user = #{progressUser,jdbcType=BIGINT},
+      </if>
+      <if test="progressTime != null">
+        progress_time = #{progressTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="progressMemo != null">
+        progress_memo = #{progressMemo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where progress_id = #{progressId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="me.zhengjie.modules.wechat.entity.ServiceProgress">
+    update service_progress
+    set service_id = #{serviceId,jdbcType=VARCHAR},
+      progress_state = #{progressState,jdbcType=VARCHAR},
+      progress_user = #{progressUser,jdbcType=BIGINT},
+      progress_time = #{progressTime,jdbcType=TIMESTAMP},
+      progress_memo = #{progressMemo,jdbcType=VARCHAR}
+    where progress_id = #{progressId,jdbcType=BIGINT}
+  </update>
+</mapper>

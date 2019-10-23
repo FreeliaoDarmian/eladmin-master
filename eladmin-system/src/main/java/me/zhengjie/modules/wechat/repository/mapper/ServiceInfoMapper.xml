@@ -1,0 +1,500 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="me.zhengjie.modules.wechat.repository.ServiceInfoMapper">
+  <resultMap id="BaseResultMap" type="me.zhengjie.modules.wechat.entity.ServiceInfo">
+    <id column="service_id" jdbcType="VARCHAR" property="serviceId" />
+    <result column="service_name" jdbcType="VARCHAR" property="serviceName" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="user_address" jdbcType="VARCHAR" property="userAddress" />
+    <result column="user_phone" jdbcType="VARCHAR" property="userPhone" />
+    <result column="product_name" jdbcType="VARCHAR" property="productName" />
+    <result column="product_brand" jdbcType="VARCHAR" property="productBrand" />
+    <result column="product_model" jdbcType="VARCHAR" property="productModel" />
+    <result column="product_num" jdbcType="SMALLINT" property="productNum" />
+    <result column="fault_description" jdbcType="VARCHAR" property="faultDescription" />
+    <result column="sale_time" jdbcType="TIMESTAMP" property="saleTime" />
+    <result column="bookin_time" jdbcType="TIMESTAMP" property="bookinTime" />
+    <result column="wx_openid" jdbcType="VARCHAR" property="wxOpenid" />
+    <result column="require_time" jdbcType="VARCHAR" property="requireTime" />
+    <result column="is_dispatch" jdbcType="BIT" property="isDispatch" />
+    <result column="dispatcher" jdbcType="BIGINT" property="dispatcher" />
+    <result column="dispatch_time" jdbcType="TIMESTAMP" property="dispatchTime" />
+    <result column="processor" jdbcType="BIGINT" property="processor" />
+    <result column="fees" jdbcType="DECIMAL" property="fees" />
+    <result column="callback_info" jdbcType="VARCHAR" property="callbackInfo" />
+    <result column="service_memo" jdbcType="VARCHAR" property="serviceMemo" />
+    <result column="pay_status" jdbcType="BIGINT" property="payStatus" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    service_id, service_name, user_name, user_address, user_phone, product_name, product_brand, 
+    product_model, product_num, fault_description, sale_time, bookin_time, wx_openid, 
+    require_time, is_dispatch, dispatcher, dispatch_time, processor, fees, callback_info, 
+    service_memo, pay_status
+  </sql>
+  <select id="selectByExample" parameterType="me.zhengjie.modules.wechat.entity.ServiceInfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from service_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from service_info
+    where service_id = #{serviceId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from service_info
+    where service_id = #{serviceId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="me.zhengjie.modules.wechat.entity.ServiceInfoExample">
+    delete from service_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="me.zhengjie.modules.wechat.entity.ServiceInfo">
+    insert into service_info (service_id, service_name, user_name, 
+      user_address, user_phone, product_name, 
+      product_brand, product_model, product_num, 
+      fault_description, sale_time, bookin_time, 
+      wx_openid, require_time, is_dispatch, 
+      dispatcher, dispatch_time, processor, 
+      fees, callback_info, service_memo, 
+      pay_status)
+    values (#{serviceId,jdbcType=VARCHAR}, #{serviceName,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
+      #{userAddress,jdbcType=VARCHAR}, #{userPhone,jdbcType=VARCHAR}, #{productName,jdbcType=VARCHAR}, 
+      #{productBrand,jdbcType=VARCHAR}, #{productModel,jdbcType=VARCHAR}, #{productNum,jdbcType=SMALLINT}, 
+      #{faultDescription,jdbcType=VARCHAR}, #{saleTime,jdbcType=TIMESTAMP}, #{bookinTime,jdbcType=TIMESTAMP}, 
+      #{wxOpenid,jdbcType=VARCHAR}, #{requireTime,jdbcType=VARCHAR}, #{isDispatch,jdbcType=BIT}, 
+      #{dispatcher,jdbcType=BIGINT}, #{dispatchTime,jdbcType=TIMESTAMP}, #{processor,jdbcType=BIGINT}, 
+      #{fees,jdbcType=DECIMAL}, #{callbackInfo,jdbcType=VARCHAR}, #{serviceMemo,jdbcType=VARCHAR}, 
+      #{payStatus,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="me.zhengjie.modules.wechat.entity.ServiceInfo">
+    insert into service_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="serviceId != null">
+        service_id,
+      </if>
+      <if test="serviceName != null">
+        service_name,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="userAddress != null">
+        user_address,
+      </if>
+      <if test="userPhone != null">
+        user_phone,
+      </if>
+      <if test="productName != null">
+        product_name,
+      </if>
+      <if test="productBrand != null">
+        product_brand,
+      </if>
+      <if test="productModel != null">
+        product_model,
+      </if>
+      <if test="productNum != null">
+        product_num,
+      </if>
+      <if test="faultDescription != null">
+        fault_description,
+      </if>
+      <if test="saleTime != null">
+        sale_time,
+      </if>
+      <if test="bookinTime != null">
+        bookin_time,
+      </if>
+      <if test="wxOpenid != null">
+        wx_openid,
+      </if>
+      <if test="requireTime != null">
+        require_time,
+      </if>
+      <if test="isDispatch != null">
+        is_dispatch,
+      </if>
+      <if test="dispatcher != null">
+        dispatcher,
+      </if>
+      <if test="dispatchTime != null">
+        dispatch_time,
+      </if>
+      <if test="processor != null">
+        processor,
+      </if>
+      <if test="fees != null">
+        fees,
+      </if>
+      <if test="callbackInfo != null">
+        callback_info,
+      </if>
+      <if test="serviceMemo != null">
+        service_memo,
+      </if>
+      <if test="payStatus != null">
+        pay_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="serviceId != null">
+        #{serviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceName != null">
+        #{serviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userAddress != null">
+        #{userAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="userPhone != null">
+        #{userPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="productName != null">
+        #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="productBrand != null">
+        #{productBrand,jdbcType=VARCHAR},
+      </if>
+      <if test="productModel != null">
+        #{productModel,jdbcType=VARCHAR},
+      </if>
+      <if test="productNum != null">
+        #{productNum,jdbcType=SMALLINT},
+      </if>
+      <if test="faultDescription != null">
+        #{faultDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="saleTime != null">
+        #{saleTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bookinTime != null">
+        #{bookinTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="wxOpenid != null">
+        #{wxOpenid,jdbcType=VARCHAR},
+      </if>
+      <if test="requireTime != null">
+        #{requireTime,jdbcType=VARCHAR},
+      </if>
+      <if test="isDispatch != null">
+        #{isDispatch,jdbcType=BIT},
+      </if>
+      <if test="dispatcher != null">
+        #{dispatcher,jdbcType=BIGINT},
+      </if>
+      <if test="dispatchTime != null">
+        #{dispatchTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="processor != null">
+        #{processor,jdbcType=BIGINT},
+      </if>
+      <if test="fees != null">
+        #{fees,jdbcType=DECIMAL},
+      </if>
+      <if test="callbackInfo != null">
+        #{callbackInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceMemo != null">
+        #{serviceMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="payStatus != null">
+        #{payStatus,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="me.zhengjie.modules.wechat.entity.ServiceInfoExample" resultType="java.lang.Long">
+    select count(*) from service_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update service_info
+    <set>
+      <if test="record.serviceId != null">
+        service_id = #{record.serviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serviceName != null">
+        service_name = #{record.serviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userName != null">
+        user_name = #{record.userName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userAddress != null">
+        user_address = #{record.userAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userPhone != null">
+        user_phone = #{record.userPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.productName != null">
+        product_name = #{record.productName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.productBrand != null">
+        product_brand = #{record.productBrand,jdbcType=VARCHAR},
+      </if>
+      <if test="record.productModel != null">
+        product_model = #{record.productModel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.productNum != null">
+        product_num = #{record.productNum,jdbcType=SMALLINT},
+      </if>
+      <if test="record.faultDescription != null">
+        fault_description = #{record.faultDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="record.saleTime != null">
+        sale_time = #{record.saleTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.bookinTime != null">
+        bookin_time = #{record.bookinTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.wxOpenid != null">
+        wx_openid = #{record.wxOpenid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.requireTime != null">
+        require_time = #{record.requireTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDispatch != null">
+        is_dispatch = #{record.isDispatch,jdbcType=BIT},
+      </if>
+      <if test="record.dispatcher != null">
+        dispatcher = #{record.dispatcher,jdbcType=BIGINT},
+      </if>
+      <if test="record.dispatchTime != null">
+        dispatch_time = #{record.dispatchTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.processor != null">
+        processor = #{record.processor,jdbcType=BIGINT},
+      </if>
+      <if test="record.fees != null">
+        fees = #{record.fees,jdbcType=DECIMAL},
+      </if>
+      <if test="record.callbackInfo != null">
+        callback_info = #{record.callbackInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serviceMemo != null">
+        service_memo = #{record.serviceMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payStatus != null">
+        pay_status = #{record.payStatus,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update service_info
+    set service_id = #{record.serviceId,jdbcType=VARCHAR},
+      service_name = #{record.serviceName,jdbcType=VARCHAR},
+      user_name = #{record.userName,jdbcType=VARCHAR},
+      user_address = #{record.userAddress,jdbcType=VARCHAR},
+      user_phone = #{record.userPhone,jdbcType=VARCHAR},
+      product_name = #{record.productName,jdbcType=VARCHAR},
+      product_brand = #{record.productBrand,jdbcType=VARCHAR},
+      product_model = #{record.productModel,jdbcType=VARCHAR},
+      product_num = #{record.productNum,jdbcType=SMALLINT},
+      fault_description = #{record.faultDescription,jdbcType=VARCHAR},
+      sale_time = #{record.saleTime,jdbcType=TIMESTAMP},
+      bookin_time = #{record.bookinTime,jdbcType=TIMESTAMP},
+      wx_openid = #{record.wxOpenid,jdbcType=VARCHAR},
+      require_time = #{record.requireTime,jdbcType=VARCHAR},
+      is_dispatch = #{record.isDispatch,jdbcType=BIT},
+      dispatcher = #{record.dispatcher,jdbcType=BIGINT},
+      dispatch_time = #{record.dispatchTime,jdbcType=TIMESTAMP},
+      processor = #{record.processor,jdbcType=BIGINT},
+      fees = #{record.fees,jdbcType=DECIMAL},
+      callback_info = #{record.callbackInfo,jdbcType=VARCHAR},
+      service_memo = #{record.serviceMemo,jdbcType=VARCHAR},
+      pay_status = #{record.payStatus,jdbcType=BIGINT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="me.zhengjie.modules.wechat.entity.ServiceInfo">
+    update service_info
+    <set>
+      <if test="serviceName != null">
+        service_name = #{serviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userAddress != null">
+        user_address = #{userAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="userPhone != null">
+        user_phone = #{userPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="productName != null">
+        product_name = #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="productBrand != null">
+        product_brand = #{productBrand,jdbcType=VARCHAR},
+      </if>
+      <if test="productModel != null">
+        product_model = #{productModel,jdbcType=VARCHAR},
+      </if>
+      <if test="productNum != null">
+        product_num = #{productNum,jdbcType=SMALLINT},
+      </if>
+      <if test="faultDescription != null">
+        fault_description = #{faultDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="saleTime != null">
+        sale_time = #{saleTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bookinTime != null">
+        bookin_time = #{bookinTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="wxOpenid != null">
+        wx_openid = #{wxOpenid,jdbcType=VARCHAR},
+      </if>
+      <if test="requireTime != null">
+        require_time = #{requireTime,jdbcType=VARCHAR},
+      </if>
+      <if test="isDispatch != null">
+        is_dispatch = #{isDispatch,jdbcType=BIT},
+      </if>
+      <if test="dispatcher != null">
+        dispatcher = #{dispatcher,jdbcType=BIGINT},
+      </if>
+      <if test="dispatchTime != null">
+        dispatch_time = #{dispatchTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="processor != null">
+        processor = #{processor,jdbcType=BIGINT},
+      </if>
+      <if test="fees != null">
+        fees = #{fees,jdbcType=DECIMAL},
+      </if>
+      <if test="callbackInfo != null">
+        callback_info = #{callbackInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceMemo != null">
+        service_memo = #{serviceMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="payStatus != null">
+        pay_status = #{payStatus,jdbcType=BIGINT},
+      </if>
+    </set>
+    where service_id = #{serviceId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="me.zhengjie.modules.wechat.entity.ServiceInfo">
+    update service_info
+    set service_name = #{serviceName,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      user_address = #{userAddress,jdbcType=VARCHAR},
+      user_phone = #{userPhone,jdbcType=VARCHAR},
+      product_name = #{productName,jdbcType=VARCHAR},
+      product_brand = #{productBrand,jdbcType=VARCHAR},
+      product_model = #{productModel,jdbcType=VARCHAR},
+      product_num = #{productNum,jdbcType=SMALLINT},
+      fault_description = #{faultDescription,jdbcType=VARCHAR},
+      sale_time = #{saleTime,jdbcType=TIMESTAMP},
+      bookin_time = #{bookinTime,jdbcType=TIMESTAMP},
+      wx_openid = #{wxOpenid,jdbcType=VARCHAR},
+      require_time = #{requireTime,jdbcType=VARCHAR},
+      is_dispatch = #{isDispatch,jdbcType=BIT},
+      dispatcher = #{dispatcher,jdbcType=BIGINT},
+      dispatch_time = #{dispatchTime,jdbcType=TIMESTAMP},
+      processor = #{processor,jdbcType=BIGINT},
+      fees = #{fees,jdbcType=DECIMAL},
+      callback_info = #{callbackInfo,jdbcType=VARCHAR},
+      service_memo = #{serviceMemo,jdbcType=VARCHAR},
+      pay_status = #{payStatus,jdbcType=BIGINT}
+    where service_id = #{serviceId,jdbcType=VARCHAR}
+  </update>
+
+  <select id="selectByQuerryDate" parameterType="me.zhengjie.modules.wechat.vo.QuerryData" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from service_info
+    <where>
+    <if test="serviceId != null">
+      service_id=#{serviceId,jdbcType=VARCHAR}
+    </if>
+    <if test="userName != null">
+      and user_name=#{userName,jdbcType=VARCHAR}
+    </if>
+    <if test="productName != null">
+      and product_name=#{productName,jdbcType=VARCHAR}
+    </if>
+    </where>
+  </select>
+
+
+</mapper>
